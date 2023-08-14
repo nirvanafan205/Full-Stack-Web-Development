@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import "./style.css";
 
 const LandingPage = () => {
   return (
@@ -20,6 +21,7 @@ const LandingPage = () => {
           Create Account <FontAwesomeIcon icon={faUserPlus} />
         </Link>
       </div>
+      <div className="gradient"></div>
     </div>
   );
 };

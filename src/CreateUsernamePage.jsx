@@ -11,7 +11,6 @@ const CreateUsernamePage = () => {
       <Link to="/" className="home-button">
         <FontAwesomeIcon icon={faHouse} />
       </Link>
-      {/* Add your login form or other content here */}
     </div>
   );
 };
