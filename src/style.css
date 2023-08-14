@@ -44,3 +44,19 @@ h1 {
     background-color: midnightblue;
     text-align: center;
 }
+
+/* buttons */
+.button {
+    padding: 5rem;
+    font-family: var(--mono);
+    text-decoration: none;
+}
+
+.button:hover {
+    color: var(--white);
+}
+
+/* navigation bar */
+.navBar {
+    text-align: center;
+}

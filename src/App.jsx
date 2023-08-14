@@ -1,16 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom"; // Correct the import statement
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import LandingPage from "./LandingPage";
+import LoginPage from "./LoginPage";
+import { BrowserRouter, Routes, Route } from "react-router-dom"; // components and utilities for client-side routing
 import "./style.css";
+import CreateUsernamePage from "./CreateUsernamePage";
 
 const App = () => {
   return (
-    <Router>
-      <Switch>
-        <Route path="/" exact component={LandingPage} />
-      </Switch>
-    </Router>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/createUsername" element={<CreateUsernamePage />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
