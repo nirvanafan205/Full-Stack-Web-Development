@@ -94,7 +94,6 @@ h1 {
 }
 
 .login-form button {
-
     font-size: 18px;
     font-weight: bold;
     margin: 20px 0;
@@ -112,4 +111,9 @@ h1 {
 .input {
     padding-left: 3rem;
     padding-right: 3rem;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
 }
