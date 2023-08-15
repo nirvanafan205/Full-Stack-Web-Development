@@ -6,9 +6,15 @@ import "./style.css";
 
 const CreateUsernamePage = () => {
 
+	// username
 	const [username, setUsername] = useState("");
 	const [isUsernameValid, setIsUsernameValid] = useState(true);
 	const [showErrorMessage, setShowErrorMessage] = useState(false);
+
+	// password
+	const [password, setPassword] = useState("");
+	const [isPasswordValid, setIsPasswordValid] = useState(true);
+	const [showPasswordErrorMessage, setShowPasswordErrorMessage] = useState(false);
 
 	const handleUsernameChange = (event) => {
 		const newUsername = event.target.value;
@@ -29,6 +35,25 @@ const CreateUsernamePage = () => {
 		setIsUsernameValid(lowercaseLettersOnly && atLeastThreeNumbers);
 	};
 
+	const handlePasswordChange = (event) => {
+		const newPassword = event.target.value;
+	  
+		// Validate the password
+		const lowercaseLettersOnly = /^[a-z]+$/.test(newPassword);
+		const atLeastOneNumber = /\d/.test(newPassword);
+		const atLeastOneSpecialCharacter = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(newPassword);
+		const isValid = lowercaseLettersOnly && atLeastOneNumber && atLeastOneSpecialCharacter;
+	  
+		// Set state values
+		setPassword(newPassword);
+		setIsPasswordValid(isValid);
+		setShowPasswordErrorMessage(!isValid);
+	  };
+	  
+  
+
+
+
 	const handleSubmit = (event) => {
 		event.preventDefault();
 
@@ -36,7 +61,6 @@ const CreateUsernamePage = () => {
 			return;
 		}
 	};
-
 
 	return (
 		<div>
@@ -65,12 +89,25 @@ const CreateUsernamePage = () => {
 		/>
 
 		<p>Password</p>
-		<input className="input" type="password" name="password" placeholder="Password" />
+		<input 
+		className={`input${!isPasswordValid ? " invalid" : ""}`}
+		type="password" 
+		name="password" 
+		placeholder="Password"
+		value={password}
+		onChange={handlePasswordChange}
+		/>
 		</div>
 
 		{showErrorMessage && (
-			<p className="error-messae">
+			<p className="error-message">
 			User name must contain only lowercase letters and at least three numbers.
+			</p>
+		)}
+
+		{showPasswordErrorMessage && (
+			<p className="error-message">
+			Password must contain lowercase letters, at least one number, and one special character.
 			</p>
 		)}
 
