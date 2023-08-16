@@ -75,7 +75,7 @@ h1 {
 	left: 50%;
 	transform: translate(-50%, -50%);
 	position: absolute;
-	color: var(--plum);
+    color: turquoise;
 }
 
 .login-form input {
@@ -101,4 +101,8 @@ h1 {
 
 .link {
     text-decoration: none;
+}
+
+.error-message {
+    color: red;
 }

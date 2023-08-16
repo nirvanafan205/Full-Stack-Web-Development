@@ -8,6 +8,30 @@ const CreateUsernamePage = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const validateInput = (input) => {
+    const lowercaseInput = input.toLowerCase();
+    const numCount = (lowercaseInput.match(/\d/g) || []).length;
+    return lowercaseInput === input && numCount >= 3;
+  };
+
+  const handleInputChange = (e) => {
+    const inputValue = e.target.value;
+    setName(inputValue);
+    setIsButtonDisabled(!validateInput(inputValue));
+
+    if (inputValue.trim() === "") {
+      setErrorMessage(""); // Clear error message when input is empty
+    } else if (!validateInput(inputValue)) {
+      setErrorMessage(
+        "Username must be all lowercase with at least three numbers."
+      );
+    } else {
+      setErrorMessage("");
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -40,7 +64,8 @@ const CreateUsernamePage = () => {
               autoComplete="off"
               name="email"
               className=""
-              onChange={(e) => setName(e.target.value)}
+              value={name}
+              onChange={handleInputChange}
             />
           </div>
 
@@ -53,11 +78,14 @@ const CreateUsernamePage = () => {
             />
           </div>
 
-          <button type="submit" className="">
+          <button type="submit" className="" disabled={isButtonDisabled}>
             Register
           </button>
 
-          <p>Already Have an Account</p>
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
+
+          <p>Already Have an Account?</p>
+          <p>Let's log you in!</p>
 
           <Link to="/login" className="link">
             Login
