@@ -68,78 +68,37 @@ h1 {
     background: radial-gradient(circle, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
 }
 
-/* login page */
-.LoginPost {
-    text-align: center;
-}
-
+/* Form */
 .login-form {
-    width: 350px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    position: absolute;
-    color: black;
-}
-
-.login-form p {
-    font-size: 20px;
-    margin: 15px 0;
+	width: 350px;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	position: absolute;
+	color: var(--plum);
 }
 
 .login-form input {
-    font-size: 16px;
-    width: 100%;
-    padding: 15px 10px;
-    border: 0;
-    outline: none;
-    border-radius: 5px;
-    color: var(--hotmag);
+    color: magenta;
+	font-size: 16px;
+	width: 100%;
+	padding: 15px 10px;
+	border: 0;
+	outline: none;
+	border-radius: 5px;
+    margin-bottom: 25px;
 }
 
 .login-form button {
-    font-size: 18px;
-    font-weight: bold;
-    margin: 20px 0;
-    padding: 10px 15px;
-    width: 50%;
-    border-radius: 5px;
-    border: 0;
+	font-size: 18px;
+	font-weight: bold;
+	margin: 20px 0;
+	padding: 10px 15px;
+	width: 50%;
+	border-radius: 5px;
+	border: 0;
 }
 
-.color {
-    background-color: royalblue;
-    border-radius: 15px;
+.link {
+    text-decoration: none;
 }
-
-.inputWrapper {
-    padding: 10px;
-    /* Add padding to all sides */
-    padding-left: 3rem;
-    padding-right: 3rem;
-}
-
-.input {
-    width: 100%;
-    padding: 12px 8px;
-    border: 0;
-    outline: none;
-    border-radius: 5px;
-}
-
-.wrapper {
-    display: flex;
-    justify-content: center;
-}
-
-
-.input.invalid {
-    border-color: red;
-  }
-  
-  .error-message {
-    color: red;
-    text-align: center;
-    font-size: 14px;
-    margin-top: 5px;
-  }
