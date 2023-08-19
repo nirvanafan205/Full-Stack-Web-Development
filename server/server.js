@@ -21,21 +21,48 @@ mongoose.connect("mongodb://127.0.0.1:27017/Users");
 // defins an API Endpoint
 // when a POST request is made to /register
 // calback function will be executed
-app.post("/register", (req, res) => {
-  /*
-    creates a new user in the database
-    req.body contains data sent w/ POST request
-    includes the user's info
+app.post("/register", async (req, res) => {
+  const { name, password } = req.body;
 
-    .then() handles successful creation of the user
-    responds w/ created user object in JSON format using res.json(user)
+  try {
+    const existingUser = await userModel.findOne({ name });
+    if (existingUser) {
+      return res.json({ message: "Username already exists", exists: true });
+    }
 
-    .catch() handles erros and respons w/ error in JSON format using res.json(err)
-   */
-  userModel
-    .create(req.body)
-    .then((users) => res.json(users))
-    .catch((err) => res.json(err));
+    const newUser = await userModel.create({ name, password });
+    return res.json(newUser);
+  } catch (error) {
+    console.error("Error registering user:", error);
+    return res.status(500).json({ message: "asdfasdf" });
+  }
+});
+
+app.post("/login", async (req, res) => {
+  const { name, password } = req.body;
+  try {
+    const user = await userModel.findOne({ name, password });
+    if (user) {
+      res.json("Success");
+    } else {
+      res.json("Invalid credentials");
+    }
+  } catch (error) {
+    console.error("Error logging in:", error);
+    res.status(500).json({ message: "An error occurred" });
+  }
+});
+
+// defines an API Endpoint to check if a username exists
+app.get("/checkUsername", async (req, res) => {
+  const { username } = req.query;
+  const existUsername = await userModel.findOne({ username });
+
+  if (existUsername) {
+    res.json({ exists: true });
+  } else {
+    res.json({ exists: false });
+  }
 });
 
 // starts the server
