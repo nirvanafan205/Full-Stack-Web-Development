@@ -1,28 +1,36 @@
-// importing React and ReactDOM libraryies 
+// importing React and ReactDOM libraryies
 // Used to create react components and rendering components into the DOM
 // BrowserRouter, Routes, and Route is used for client-side routing
 // LandingPage, LoginPage, CreateUsernamePage is imported to be rendered
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom"; // Correct the import statement
+import { BrowserRouter, Routes, Route } from "react-router-dom"; // components and utilities for client-side routing
 import LandingPage from "./LandingPage";
 import LoginPage from "./LoginPage";
-import { BrowserRouter, Routes, Route } from "react-router-dom"; // components and utilities for client-side routing
-import "./style.css";
 import CreateUsernamePage from "./CreateUsernamePage";
+import "./style.css";
 
 // serves as the root component of the application
 const App = () => {
+  const [loggedInUser, setLoggedInUser] = useState("");
   return (
     // BrowserRouter used to enable client-side routing
     // Allows to make routes for different URLS w/o a full page refresh
     <BrowserRouter>
-
-      { /* Defined different routes useing the Route component*/}
-      { /* Each route has a specific path prop that corresponds to URL*/}
-      { /* prop is used to specify the component to render when the URL matches the given path*/}
       <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route
+          path="/"
+          element={
+            <LandingPage
+              loggedInUser={loggedInUser}
+              setLoggedInUser={setLoggedInUser}
+            />
+          }
+        />
+        <Route
+          path="/login"
+          element={<LoginPage setLoggedInUser={setLoggedInUser} />}
+        />
         <Route path="/createUsername" element={<CreateUsernamePage />} />
       </Routes>
     </BrowserRouter>

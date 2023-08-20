@@ -5,7 +5,7 @@ import { faHouse } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import "./style.css";
 
-const LoginPage = () => {
+const LoginPage = ({ setLoggedInUser }) => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -21,6 +21,7 @@ const LoginPage = () => {
       });
 
       if (response.data === "Success") {
+        setLoggedInUser(name);
         navigate("/"); // Navigate to the home page if login is successful
       } else {
         setErrorMessage("Invalid username or password");

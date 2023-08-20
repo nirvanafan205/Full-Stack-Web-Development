@@ -1,10 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUser,
+  faUserPlus,
+  faSignOutAlt,
+} from "@fortawesome/free-solid-svg-icons";
 import "./style.css";
 
-const LandingPage = () => {
+const LandingPage = ({ loggedInUser, setLoggedInUser }) => {
+  const handleLogout = () => {
+    setLoggedInUser(""); // Log out by setting the loggedInUser to an empty string
+  };
+
   return (
     <div className="intro">
       <h1>Welcome to Lab 3!</h1>
@@ -22,6 +30,16 @@ const LandingPage = () => {
         </Link>
       </div>
       <div className="gradient"></div>
+      <div>
+        {loggedInUser && (
+          <div>
+            <h1>Hello {loggedInUser}!</h1>
+            <button onClick={handleLogout} className="logoutButton">
+              <FontAwesomeIcon icon={faSignOutAlt} /> Logout
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
