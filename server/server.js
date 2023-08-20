@@ -2,6 +2,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const bcrypt = require("bcrypt"); // Import bcrypt library
 const userModel = require("./models/user");
 
 // instance of express application is created
@@ -30,19 +31,29 @@ app.post("/register", async (req, res) => {
       return res.json({ message: "Username already exists", exists: true });
     }
 
-    const newUser = await userModel.create({ name, password });
+    const saltRounds = 10; // Number of salt rounds for bcrypt
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+    const newUser = await userModel.create({ name, password: hashedPassword });
     return res.json(newUser);
   } catch (error) {
     console.error("Error registering user:", error);
-    return res.status(500).json({ message: "asdfasdf" });
+    return res.status(500).json({ message: "An error occurred" });
   }
 });
 
 app.post("/login", async (req, res) => {
   const { name, password } = req.body;
   try {
-    const user = await userModel.findOne({ name, password });
-    if (user) {
+    const user = await userModel.findOne({ name });
+
+    if (!user) {
+      return res.json("Invalid credentials");
+    }
+
+    const passwordMatch = await bcrypt.compare(password, user.password);
+
+    if (passwordMatch) {
       res.json("Success");
     } else {
       res.json("Invalid credentials");
