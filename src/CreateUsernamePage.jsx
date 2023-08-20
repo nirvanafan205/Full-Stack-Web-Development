@@ -60,44 +60,42 @@ const CreateUsernamePage = () => {
 
   return (
     <div>
-      <div className="loginForm">
-        <form onSubmit={handleSubmit}>
-          <h1>Welcome</h1>
+      <div className="login-form">
+        <div className="color">
+          <h1 className="LoginPost">Registration Form</h1>
+          <form onSubmit={handleSubmit}>
+            <div className="inputWrapper">
+              <p>User Name</p>
+              <input
+                type="text"
+                placeholder="User Name"
+                autoComplete="off"
+                id="userName"
+                name="username"
+                value={name}
+                onChange={handleInputChange}
+              />
+            </div>
 
-          <div className="input-container">
-            <input
-              type="text"
-              placeholder="User Name"
-              autoComplete="off"
-              id="userName"
-              name="username"
-              value={name}
-              onChange={handleInputChange}
-            />
-          </div>
+            <div className="inputWrapper">
+              <input
+                type="password"
+                placeholder="Password"
+                id="passWord"
+                name="password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
 
-          <div className="input-container">
-            <input
-              type="password"
-              placeholder="Password"
-              id="passWord"
-              name="password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
+            <div className="error-message">
+              {errorMessage && <p className="error-text">{errorMessage}</p>}
+            </div>
 
-          <div className="error-message">
-            {errorMessage && <p className="error-text">{errorMessage}</p>}
-          </div>
-
-          <button type="submit" disabled={isButtonDisabled}>
-            Register
-          </button>
-
-          <Link to="/" className="home-link">
-            <FontAwesomeIcon icon={faHouse} />
-          </Link>
-        </form>
+            <button type="submit" disabled={isButtonDisabled}>
+              Register
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

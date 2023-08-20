@@ -39,7 +39,6 @@ const LoginPage = () => {
           <FontAwesomeIcon icon={faHouse} />
         </Link>
       </div>
-      {/* ... (rest of your code) */}
 
       {/* Login Form */}
       <div className="login-form">
@@ -53,8 +52,8 @@ const LoginPage = () => {
                 type="text"
                 name="user"
                 placeholder="User Name"
-                value={name} // Add this line
-                onChange={(e) => setName(e.target.value)} // Add this line
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
 
               <p>Password</p>
@@ -63,8 +62,8 @@ const LoginPage = () => {
                 type="password"
                 name="password"
                 placeholder="Password"
-                value={password} // Add this line
-                onChange={(e) => setPassword(e.target.value)} // Add this line
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 
