@@ -21,12 +21,6 @@ System Overview:
         Create a collection for user data, where each document contains the username, hashed password, and current count.
         Create a collection for session data to manage user sessions.
 
-    Docker:
-        Containerize both the React front-end and the Node.js Express.js backend using Docker.
-        Use Docker Compose to manage the multiple containers.
-        Define Dockerfiles for both the React app and the Node.js Express app.
-        Configure environment variables for connecting to the MongoDB database.
-
 Interaction Flow:
 
     User Registration:
@@ -50,13 +44,6 @@ Interaction Flow:
         The React app sends a logout request to the Express.js server, which destroys the user's session.
         The user is redirected to the landing page.
 
-Docker and Hosting:
-
-    The React front-end and Node.js Express.js backend are containerized using Docker.
-    Use Docker Compose to define and manage the two containers.
-    Docker Compose will handle network communication between the React container, the Express.js container, and the MongoDB container.
-    Host the Docker containers locally on your machine for testing and development.
-
 Summary:
 
-In this system, React provides the user interface, Node.js and Express.js handle server-side logic, MongoDB stores user information and session data, and Docker containerizes the entire application for local hosting. The components work together to provide user registration, login, main page functionality, and session management. The described interaction flow enables users to have personalized counts and maintain their logged-in state while using the application.
+In this system, React provides the user interface, Node.js and Express.js handle server-side logic and  MongoDB stores user information and session data. The components work together to provide user registration, login, main page functionality, and session management. The described interaction flow enables users to have personalized counts and maintain their logged-in state while using the application.
