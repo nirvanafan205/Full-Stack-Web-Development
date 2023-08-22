@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema({
   name: String,
   password: String,
+  count: Number,
 });
 
 // mongoose.model function is used to create a model for a MongoDB collection based on the schema

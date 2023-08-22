@@ -1,27 +1,35 @@
-// import modules are imported
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const bcrypt = require("bcrypt"); // Import bcrypt library
+const bcrypt = require("bcrypt");
 const userModel = require("./models/user");
 
-// instance of express application is created
-// assigned it to the app varaible
 const app = express();
 
-// two middleware functions used
-app.use(express.json()); // middleware parses incoming JSON payloads making it available in req.body for route handlers
-app.use(cors()); // enables Cross-Origin resource Charing
-// allos frontend to make requests to this server from a different origin
+app.use(express.json());
+app.use(cors());
 
-// establishes a connection to the MongoDB data base
-// // uses IP address of the local machine 27017 ( default port )
-// /Users specifies the name of the database to connect to
 mongoose.connect("mongodb://127.0.0.1:27017/Users");
 
-// defins an API Endpoint
-// when a POST request is made to /register
-// calback function will be executed
+// Define an async function to handle the increment count action
+const handleIncrementCount = async (username) => {
+  try {
+    const user = await userModel.findOne({ name: username });
+
+    if (!user) {
+      console.error("User not found");
+      return false;
+    }
+
+    user.count += 1;
+    await user.save();
+    return true;
+  } catch (error) {
+    console.error("Error incrementing count:", error);
+    return false;
+  }
+};
+
 app.post("/register", async (req, res) => {
   const { name, password } = req.body;
 
@@ -32,9 +40,14 @@ app.post("/register", async (req, res) => {
     }
 
     const saltRounds = 10; // Number of salt rounds for bcrypt
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    const hashedPassword = await bcrypt.hash(password, saltRounds); // Generate hashed password
 
-    const newUser = await userModel.create({ name, password: hashedPassword });
+    const newUser = await userModel.create({
+      name,
+      password: hashedPassword,
+      count: 1, // Initialize count to 1
+    });
+
     return res.json(newUser);
   } catch (error) {
     console.error("Error registering user:", error);
@@ -64,10 +77,20 @@ app.post("/login", async (req, res) => {
   }
 });
 
-// defines an API Endpoint to check if a username exists
+app.post("/incrementCount/:username", async (req, res) => {
+  const { username } = req.params;
+  const success = await handleIncrementCount(username);
+
+  if (success) {
+    res.json({ success: true });
+  } else {
+    res.status(500).json({ success: false });
+  }
+});
+
 app.get("/checkUsername", async (req, res) => {
   const { username } = req.query;
-  const existUsername = await userModel.findOne({ username });
+  const existUsername = await userModel.findOne({ name: username });
 
   if (existUsername) {
     res.json({ exists: true });
@@ -76,17 +99,20 @@ app.get("/checkUsername", async (req, res) => {
   }
 });
 
-// starts the server
-// listens on port 3001
-// callback function will be executed once the server is up and runnign
-app.listen(3001, () => {
-  console.log("server is running");
+app.get("/getUserCount/:username", async (req, res) => {
+  const { username } = req.params;
+  try {
+    const user = await userModel.findOne({ name: username });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    return res.json({ count: user.count });
+  } catch (error) {
+    console.error("Error fetching user count:", error);
+    return res.status(500).json({ message: "An error occurred" });
+  }
 });
 
-/*
-    Code defines an Express server that listens for POST request on the /register endpoint
-
-  when a request is made, it creates a new user in the MongoDB database using the userModel
-
-  created user is then sent as a JSON response
-*/
+app.listen(3001, () => {
+  console.log("Server is running on port 3001");
+});
